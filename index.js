@@ -1,8 +1,14 @@
 const fs = require('fs');
-const convertFactory = require('electron-html-to');
 const axios = require("axios");
 const inquirer = require("inquirer");
+
 const generateHTML = require("./generateHTML.js");
+
+const convertFactory = require('electron-html-to');
+// const conversion = convertFactory({
+//     converterPath: convertFactory.converters.PDF
+//   });
+
 
 function writeToFile(fileName, data) {
     console.log("write to file");
@@ -24,9 +30,11 @@ function init() {
         color
     }) {
         const queryUrl = `https://api.github.com/users/${username}`;
-        const starQuery = `https://api.github.com/users/${username}/starred?per_page=1`;
+        const starQuery = `https://api.github.com/users/${username}/starred`;
         
-        const profile = {};
+        const profile = {
+            color : color
+        };
 
         // handle when values are null
 
@@ -44,12 +52,18 @@ function init() {
             profile.repos = res.data.public_repos;
             profile.followers = res.data.followers;
             profile.following = res.data.following;
-            console.log(profile);
+
+            axios.get(starQuery).then(function (res) {
+                profile.stars = res.data.length;
+                console.log(profile);
+                const profPage = generateHTML(profile);
+                fs.writeFile('test1.html', profPage, function (err) {
+                    if (err) throw err;
+                    console.log('Saved!');
+                  })
+            });
         });
 
-        axios.get(starQuery).then(function (res) {
-            profile.stars = res.data.length;
-        });
 
     });
 
