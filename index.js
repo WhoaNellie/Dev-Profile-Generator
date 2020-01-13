@@ -26,28 +26,30 @@ function init() {
         const queryUrl = `https://api.github.com/users/${username}`;
         const starQuery = `https://api.github.com/users/${username}/starred?per_page=1`;
         
+        const profile = {};
+
+        // handle when values are null
 
         axios.get(queryUrl).then(function (res) {
-            const profPic = res.data.avatar_url;
-            const name = res.data.name;
-            const company = res.data.company;
+            profile.pfp = res.data.avatar_url;
+            profile.name = res.data.name;
+            profile.company = res.data.company;
 
-            const location = res.data.location;
-            const gitURL = res.data.html_url;
-            const blog = res.data.blog;
+            profile.location = res.data.location;
+            profile.gitURL = res.data.html_url;
+            profile.blog = res.data.blog;
             
-            const bio = res.data.bio;
+            profile.bio = res.data.bio;
 
-            const repos = res.data.public_repos;
-            const followers = res.data.followers;
-            const following = res.data.following;
-            
+            profile.repos = res.data.public_repos;
+            profile.followers = res.data.followers;
+            profile.following = res.data.following;
+            console.log(profile);
         });
 
         axios.get(starQuery).then(function (res) {
-            const stars = res.data.length;
+            profile.stars = res.data.length;
         });
-
 
     });
 
