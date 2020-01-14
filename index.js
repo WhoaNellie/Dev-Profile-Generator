@@ -10,9 +10,9 @@ const conversion = convertFactory({
 });
 
 
-function writeToFile(fileName, data) {
-    console.log("write to file");
-}
+// function writeToFile(fileName, data) {
+//     console.log("write to file");
+// }
 
 function init() {
     inquirer.prompt([{
