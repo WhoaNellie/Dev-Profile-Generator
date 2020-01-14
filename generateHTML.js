@@ -47,6 +47,8 @@ function generateHTML(data) {
            html, body {
            padding: 0;
            margin: 0;
+           height: 100%;
+           background-color: ${colors[data.color].wrapperBackground}
            }
            .wrapper {
            background-color: ${colors[data.color].wrapperBackground};
@@ -167,7 +169,11 @@ function generateHTML(data) {
            @media print { 
             body { 
               zoom: .75; 
+              background-color: ${colors[data.color].wrapperBackground};
             } 
+            html{
+              background-color: ${colors[data.color].wrapperBackground};
+            }
            }
            </style>
            </head>
@@ -191,34 +197,26 @@ function generateHTML(data) {
            
                <div class="row">
                  <div class="card">
-                   <div class="container">
                      <h3><b>Public Repositories</b></h3>
                      <h4>${data.repos}</h4>
-                   </div>
                  </div>
            
                  <div class="card">
-                   <div class="container">
                      <h3><b>Followers</b></h3>
                      <h4>${data.followers}</h4>
-                   </div>
                  </div>
                </div>
 
                <div class="row">
                           
                <div class="card">
-               <div class="container">
                  <h3><b>Github Stars</b></h3>
                  <h4>${data.stars}</h4>
-               </div>
              </div>
        
              <div class="card">
-               <div class="container">
                  <h3><b>Following</b></h3>
                  <h4>${data.following}</h4>
-               </div>
              </div>
                </div>
            </main>
