@@ -5,9 +5,9 @@ const inquirer = require("inquirer");
 const generateHTML = require("./generateHTML.js");
 
 const convertFactory = require('electron-html-to');
-// const conversion = convertFactory({
-//     converterPath: convertFactory.converters.PDF
-//   });
+const conversion = convertFactory({
+    converterPath: convertFactory.converters.PDF
+});
 
 
 function writeToFile(fileName, data) {
@@ -31,9 +31,9 @@ function init() {
     }) {
         const queryUrl = `https://api.github.com/users/${username}`;
         const starQuery = `https://api.github.com/users/${username}/starred`;
-        
+
         const profile = {
-            color : color
+            color: color
         };
 
         // handle when values are null
@@ -46,7 +46,7 @@ function init() {
             profile.location = res.data.location;
             profile.gitURL = res.data.html_url;
             profile.blog = res.data.blog;
-            
+
             profile.bio = res.data.bio;
 
             profile.repos = res.data.public_repos;
@@ -57,10 +57,25 @@ function init() {
                 profile.stars = res.data.length;
                 console.log(profile);
                 const profPage = generateHTML(profile);
-                fs.writeFile('test1.html', profPage, function (err) {
-                    if (err) throw err;
-                    console.log('Saved!');
-                  })
+                // fs.writeFile('test1.html', profPage, function (err) {
+                //     if (err) throw err;
+                //     console.log('Saved!');
+                // })
+
+                conversion(
+                {html: profPage} ,
+                    function (err, result) {
+                        if (err) {
+                            return console.error(err);
+                        }
+
+                        // console.log(result.numberOfPages);
+                        // console.log(result.logs);
+                        result.stream.pipe(fs.createWriteStream('./profile.pdf'));
+                        conversion.kill();
+
+                    }
+                );
             });
         });
 

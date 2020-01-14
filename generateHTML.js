@@ -186,9 +186,9 @@ function generateHTML(data) {
                  <h2>My name is ${data.name}</h2>
                  <h3>Currently @ ${data.company}</h3>
                  <h4 class="links-nav">
-                   <a class="nav-link" href="https://www.google.com/maps/place/${data.location}/">${data.location}</a>
-                   <a class="nav-link" href="${data.gitURL}">Github</a>
-                   <a class="nav-link" href="${data.blog}">Blog</a>
+                   <a class="nav-link" href="https://www.google.com/maps/place/${data.location}/"><i class="fas fa-location-arrow"></i> ${data.location}</a>
+                   <a class="nav-link" href="${data.gitURL}"><i class="fab fa-github-alt"></i> Github</a>
+                   <a class="nav-link" href="${data.blog}"><i class="fas fa-rss"></i> Blog</a>
                  </h4>
                </div>
              </header>
